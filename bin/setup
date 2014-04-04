@@ -1,0 +1,21 @@
+#!/usr/bin/env node
+
+var prompt = require('prompt');
+var fs     = require('fs');
+
+prompt.start();
+
+prompt.get(['AWS Key', 'AWS Secret', 'S3 Bucket', 'Fastly API Key', 'Fastl Service ID'], function(err, result) {
+  if (err) throw err;
+
+  fs.writeFile('config.json', JSON.stringify({
+    key: result['AWS Key'],
+    secret: result['AWS Secret'],
+    bucket: result['S3 Bucket'],
+    fastly_key: result['Fastly API Key'],
+    fastly_service_id: result['Fastly Service ID']
+  }), function(err, result) {
+    if (err) throw err;
+    console.log('all set!');
+  });
+});
