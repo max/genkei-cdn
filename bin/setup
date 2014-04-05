@@ -20,13 +20,13 @@ prompt.get({
     },
 
     bucket: {
-      description: 'S3 Bucket'.green,
+      description: 'S3 Bucket:'.green,
       default    : 'cdn.genkei.io',
       required   : true
     },
 
     fastly_key: {
-      description: 'Fastly API Key'.green,
+      description: 'Fastly API Key:'.green,
       required   : true
     },
 
