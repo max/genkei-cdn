@@ -4,17 +4,41 @@ var prompt = require('prompt');
 var fs     = require('fs');
 
 prompt.start();
+prompt.message   = 'Setup ⇨  ';
+prompt.delimiter = '';
 
-prompt.get(['AWS Key', 'AWS Secret', 'S3 Bucket', 'Fastly API Key', 'Fastl Service ID'], function(err, result) {
+prompt.get({
+  properties: {
+    key: {
+      description: 'AWS Key:'.green,
+      required   : true
+    },
+
+    secret: {
+      description: 'AWS Secret:'.green,
+      required   : true
+    },
+
+    bucket: {
+      description: 'S3 Bucket'.green,
+      default    : 'cdn.genkei.io',
+      required   : true
+    },
+
+    fastly_key: {
+      description: 'Fastly API Key'.green,
+      required   : true
+    },
+
+    fastly_service_id: {
+      description: 'Fastly Service ID:'.green,
+      required   : true
+    }
+  }
+}, function(err, result) {
   if (err) throw err;
 
-  fs.writeFile('config.json', JSON.stringify({
-    key: result['AWS Key'],
-    secret: result['AWS Secret'],
-    bucket: result['S3 Bucket'],
-    fastly_key: result['Fastly API Key'],
-    fastly_service_id: result['Fastly Service ID']
-  }), function(err, result) {
+  fs.writeFile('config.json', JSON.stringify(result), function(err, result) {
     if (err) throw err;
     console.log('all set!');
   });
